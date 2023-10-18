@@ -1,4 +1,4 @@
 export 'theme.dart';
-export 'textStyle.dart';
+export 'text_style.dart';
 export 'color.dart';
 export 'routes.dart';

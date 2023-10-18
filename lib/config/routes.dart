@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_edit_app/screens/screens.dart';
 
 class AppRoutes {
   AppRoutes._();
@@ -13,14 +14,14 @@ class AppRoutes {
     switch (settings.name) {
       case getStarted:
         return MaterialPageRoute(
-          builder: (_) => Container(),
+          builder: (_) => const StartedScreen(),
           settings: settings,
         );
 
       case home:
         return PageRouteBuilder(
           settings: settings,
-          pageBuilder: (_, __, ___) => Container(),
+          pageBuilder: (_, __, ___) => const HomeScreen(),
           transitionDuration: const Duration(milliseconds: 300),
           transitionsBuilder: (_, animation, __, child) {
             return SlideTransition(
@@ -36,7 +37,7 @@ class AppRoutes {
       case search:
         return PageRouteBuilder(
           settings: settings,
-          pageBuilder: (_, __, ___) => Container(),
+          pageBuilder: (_, __, ___) => const SearchScreen(),
           transitionDuration: const Duration(milliseconds: 300),
           transitionsBuilder: (_, animation, __, child) {
             return SlideTransition(

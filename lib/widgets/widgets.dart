@@ -1,2 +1,2 @@
 export 'dialog.dart';
-export 'snackbar.dart';
+export 'info_snackbar.dart';
