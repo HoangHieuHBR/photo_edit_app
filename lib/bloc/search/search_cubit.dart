@@ -33,10 +33,10 @@ class SearchCubit extends Cubit<SearchState> {
 
       if (page == 1) {
         emit(state.copyWith(
-          status: BlocStatus.success,
-          photos: result,
           photoPage: page,
           hasReachMax: result.isEmpty,
+          status: BlocStatus.success,
+          photos: result,
         ));
 
         return;
@@ -46,7 +46,7 @@ class SearchCubit extends Cubit<SearchState> {
         photoPage: page,
         hasReachMax: result.isEmpty,
         status: BlocStatus.success,
-        photos: List.from(state.photos)..addAll(result),
+        photos: [...state.photos, ...result],
       ));
     } catch (e) {
       emit(state.copyWith(status: BlocStatus.error));
@@ -56,7 +56,7 @@ class SearchCubit extends Cubit<SearchState> {
   void fetchNextPhotos() {
     final nextPage = state.photoPage + 1;
 
-    // if (state.hasReachMax) return;
+    if (state.hasReachMax) return;
 
     searchPhotos(
       showLoading: false,

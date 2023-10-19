@@ -53,7 +53,7 @@ class AppRoutes {
       case detailPhoto:
         return PageRouteBuilder(
           settings: settings,
-          pageBuilder: (_, __, ___) => Container(),
+          pageBuilder: (_, __, ___) => const PhotoDetailScreen(),
           transitionDuration: const Duration(milliseconds: 300),
           transitionsBuilder: (_, animation, __, child) {
             return SlideTransition(
@@ -69,7 +69,7 @@ class AppRoutes {
       case editPhoto:
         return PageRouteBuilder(
           settings: settings,
-          pageBuilder: (_, __, ___) => Container(),
+          pageBuilder: (_, __, ___) => const EditPhotoScreen(),
           transitionDuration: const Duration(milliseconds: 300),
           transitionsBuilder: (_, animation, __, child) {
             return SlideTransition(

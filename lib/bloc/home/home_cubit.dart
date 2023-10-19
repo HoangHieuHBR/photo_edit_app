@@ -72,7 +72,7 @@ class HomeCubit extends Cubit<HomeState> {
   void fetchNextPhotos() {
     final nextPage = state.photoPage + 1;
 
-    // if (state.hasReachMax) return;
+    if (state.hasReachMax) return;
 
     fetchPhotos(
       showLoading: false,

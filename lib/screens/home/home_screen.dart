@@ -36,7 +36,6 @@ class HomeLayout extends StatefulWidget {
 class _HomeLayoutState extends State<HomeLayout> {
   final RefreshController refreshController = RefreshController();
 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeCubit, HomeState>(
@@ -114,6 +113,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
+                  automaticallyImplyLeading: false,
                   floating: true,
                   centerTitle: false,
                   title: Text(

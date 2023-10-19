@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:photo_edit_app/bloc/bloc_status.dart';
-import 'package:photo_edit_app/config/color.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../bloc/home/home_cubit.dart';
+import '../../../config/config.dart';
 
 class PhotoWidget extends StatelessWidget {
   const PhotoWidget({super.key});
@@ -22,7 +22,13 @@ class PhotoWidget extends StatelessWidget {
             (context, index) {
               final photo = state.photos[index];
               return GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.detailPhoto,
+                    arguments: photo,
+                  );
+                },
                 child: Stack(
                   fit: StackFit.expand,
                   children: [

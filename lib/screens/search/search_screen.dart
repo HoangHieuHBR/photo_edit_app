@@ -58,6 +58,7 @@ class _SearchLayoutState extends State<SearchLayout> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
+          iconSize: 20,
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,
             color: Theme.of(context).textTheme.headlineLarge?.color,
@@ -67,9 +68,10 @@ class _SearchLayoutState extends State<SearchLayout> {
         title: TextField(
           controller: keywordController,
           decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: 'e.g: Winter, Nature, etc.',
-              hintStyle: Theme.of(context).textTheme.bodyMedium),
+            border: InputBorder.none,
+            hintText: 'e.g: Winter, Nature, etc.',
+            hintStyle: Theme.of(context).textTheme.bodyMedium,
+          ),
           style: Theme.of(context).textTheme.bodyLarge,
           autocorrect: initialKeyword != null ? false : true,
           textInputAction: TextInputAction.search,
@@ -171,8 +173,8 @@ class _SearchLayoutState extends State<SearchLayout> {
             ),
             enablePullUp: true,
             enablePullDown: true,
-            onRefresh: () => context.read<SearchCubit>().searchPhotos(),
-            onLoading: () => context.read<SearchCubit>().fetchNextPhotos(),
+            onRefresh: context.read<SearchCubit>().searchPhotos,
+            onLoading: context.read<SearchCubit>().fetchNextPhotos,
             child: GridView.custom(
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverQuiltedGridDelegate(
@@ -185,55 +187,64 @@ class _SearchLayoutState extends State<SearchLayout> {
                   QuiltedGridTile(1, 1),
                 ],
               ),
-              childrenDelegate: SliverChildBuilderDelegate((context, index) {
-                final photo = state.photos[index];
-                return GestureDetector(
-                  onTap: () {},
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Image(
-                        image: NetworkImage(
-                          photo.src.portrait,
+              childrenDelegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final photo = state.photos[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        AppRoutes.detailPhoto,
+                        arguments: photo,
+                      );
+                    },
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image(
+                          image: NetworkImage(
+                            photo.src.portrait,
+                          ),
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) {
+                            return Center(
+                              child: Icon(
+                                Icons.broken_image_rounded,
+                                color: AppColor.primaryColor,
+                              ),
+                            );
+                          },
                         ),
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) {
-                          return Center(
-                            child: Icon(
-                              Icons.broken_image_rounded,
-                              color: AppColor.primaryColor,
+                        Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.black,
+                                Colors.transparent,
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.center,
                             ),
-                          );
-                        },
-                      ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.black,
-                              Colors.transparent,
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.center,
                           ),
                         ),
-                      ),
-                      Positioned(
-                        left: 16,
-                        bottom: 16,
-                        child: Text(
-                          photo.photographer,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(color: Colors.white),
-                          maxLines: 2,
+                        Positioned(
+                          left: 16,
+                          bottom: 16,
+                          child: Text(
+                            photo.photographer,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: Colors.white),
+                            maxLines: 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+                      ],
+                    ),
+                  );
+                },
+                childCount: state.photos.length,
+              ),
             ),
           );
         },
