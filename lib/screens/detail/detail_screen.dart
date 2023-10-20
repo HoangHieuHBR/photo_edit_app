@@ -61,10 +61,9 @@ class _PhotoDetailLayoutState extends State<PhotoDetailLayout> {
   Widget build(BuildContext context) {
     return BlocListener<PhotoDetailCubit, PhotoDetailState>(
       listener: (context, state) {
-        if (state.shareStatus == DownloadStatus.downloading) {
+         if (state.shareStatus == DownloadStatus.downloading) {
           _showLoadingDialog(context);
         }
-
         if (state.shareStatus == DownloadStatus.success) {
           Navigator.pop(context);
         }
@@ -82,7 +81,7 @@ class _PhotoDetailLayoutState extends State<PhotoDetailLayout> {
           Navigator.pop(context);
           showInfoSnackBar(
             context,
-            'Something wrong when downloading photo, please try again!',
+            "Something wrong when downloading photo, please try again!",
           );
         }
       },

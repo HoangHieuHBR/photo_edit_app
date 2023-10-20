@@ -39,7 +39,7 @@ class ConfirmDialog extends StatelessWidget {
         TextButton(
           onPressed: () => Navigator.pop(context, false),
           child: Text(
-            leftButtonText,
+            leftButtonText.isEmpty ? "Cancel" : leftButtonText,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ),
@@ -49,7 +49,7 @@ class ConfirmDialog extends StatelessWidget {
             backgroundColor: Colors.red,
           ),
           child: Text(
-            rightButtonText,
+            rightButtonText.isEmpty ? "Discard" : rightButtonText,
             style: Theme.of(context)
                 .textTheme
                 .bodyMedium

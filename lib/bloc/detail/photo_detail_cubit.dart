@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -71,17 +72,25 @@ class PhotoDetailCubit extends Cubit<PhotoDetailState> {
 
   Future<Directory?> _getDirectory() async {
     Directory? directory;
+    PermissionStatus status;
 
     if (Platform.isAndroid) {
+      final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+      final AndroidDeviceInfo info = await deviceInfoPlugin.androidInfo;
       var storage = await Permission.storage.isGranted;
+
       if (!storage) {
-        var status = await Permission.storage.request();
+        status = await Permission.storage.request();
         if (!status.isGranted) return null;
       }
 
       var externalStorage = await Permission.manageExternalStorage.isGranted;
       if (!externalStorage) {
-        var status = await Permission.manageExternalStorage.request();
+        if ((info.version.sdkInt) >= 33) {
+          status = await Permission.manageExternalStorage.request();
+        } else {
+          status = await Permission.storage.request();
+        }
         if (!status.isGranted) return null;
       }
 
@@ -101,7 +110,7 @@ class PhotoDetailCubit extends Cubit<PhotoDetailState> {
     } else {
       var photos = await Permission.photos.isGranted;
       if (!photos) {
-        var status = await Permission.photos.request();
+        status = await Permission.photos.request();
         if (!status.isGranted) return null;
       }
 

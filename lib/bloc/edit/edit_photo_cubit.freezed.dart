@@ -19,6 +19,8 @@ mixin _$EditPhotoState {
   EditState get editState => throw _privateConstructorUsedError;
   double get opacityLayer => throw _privateConstructorUsedError;
   List<DragableWidget> get widgets => throw _privateConstructorUsedError;
+  DownloadStatus get downloadStatus => throw _privateConstructorUsedError;
+  DownloadStatus get shareStatus => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $EditPhotoStateCopyWith<EditPhotoState> get copyWith =>
@@ -32,7 +34,11 @@ abstract class $EditPhotoStateCopyWith<$Res> {
       _$EditPhotoStateCopyWithImpl<$Res, EditPhotoState>;
   @useResult
   $Res call(
-      {EditState editState, double opacityLayer, List<DragableWidget> widgets});
+      {EditState editState,
+      double opacityLayer,
+      List<DragableWidget> widgets,
+      DownloadStatus downloadStatus,
+      DownloadStatus shareStatus});
 }
 
 /// @nodoc
@@ -51,6 +57,8 @@ class _$EditPhotoStateCopyWithImpl<$Res, $Val extends EditPhotoState>
     Object? editState = null,
     Object? opacityLayer = null,
     Object? widgets = null,
+    Object? downloadStatus = null,
+    Object? shareStatus = null,
   }) {
     return _then(_value.copyWith(
       editState: null == editState
@@ -65,6 +73,14 @@ class _$EditPhotoStateCopyWithImpl<$Res, $Val extends EditPhotoState>
           ? _value.widgets
           : widgets // ignore: cast_nullable_to_non_nullable
               as List<DragableWidget>,
+      downloadStatus: null == downloadStatus
+          ? _value.downloadStatus
+          : downloadStatus // ignore: cast_nullable_to_non_nullable
+              as DownloadStatus,
+      shareStatus: null == shareStatus
+          ? _value.shareStatus
+          : shareStatus // ignore: cast_nullable_to_non_nullable
+              as DownloadStatus,
     ) as $Val);
   }
 }
@@ -78,7 +94,11 @@ abstract class _$$EditPhotoStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {EditState editState, double opacityLayer, List<DragableWidget> widgets});
+      {EditState editState,
+      double opacityLayer,
+      List<DragableWidget> widgets,
+      DownloadStatus downloadStatus,
+      DownloadStatus shareStatus});
 }
 
 /// @nodoc
@@ -95,6 +115,8 @@ class __$$EditPhotoStateImplCopyWithImpl<$Res>
     Object? editState = null,
     Object? opacityLayer = null,
     Object? widgets = null,
+    Object? downloadStatus = null,
+    Object? shareStatus = null,
   }) {
     return _then(_$EditPhotoStateImpl(
       editState: null == editState
@@ -109,6 +131,14 @@ class __$$EditPhotoStateImplCopyWithImpl<$Res>
           ? _value._widgets
           : widgets // ignore: cast_nullable_to_non_nullable
               as List<DragableWidget>,
+      downloadStatus: null == downloadStatus
+          ? _value.downloadStatus
+          : downloadStatus // ignore: cast_nullable_to_non_nullable
+              as DownloadStatus,
+      shareStatus: null == shareStatus
+          ? _value.shareStatus
+          : shareStatus // ignore: cast_nullable_to_non_nullable
+              as DownloadStatus,
     ));
   }
 }
@@ -119,7 +149,9 @@ class _$EditPhotoStateImpl implements _EditPhotoState {
   const _$EditPhotoStateImpl(
       {this.editState = EditState.idle,
       this.opacityLayer = 0,
-      final List<DragableWidget> widgets = const []})
+      final List<DragableWidget> widgets = const [],
+      this.downloadStatus = DownloadStatus.initial,
+      this.shareStatus = DownloadStatus.initial})
       : _widgets = widgets;
 
   @override
@@ -138,8 +170,15 @@ class _$EditPhotoStateImpl implements _EditPhotoState {
   }
 
   @override
+  @JsonKey()
+  final DownloadStatus downloadStatus;
+  @override
+  @JsonKey()
+  final DownloadStatus shareStatus;
+
+  @override
   String toString() {
-    return 'EditPhotoState(editState: $editState, opacityLayer: $opacityLayer, widgets: $widgets)';
+    return 'EditPhotoState(editState: $editState, opacityLayer: $opacityLayer, widgets: $widgets, downloadStatus: $downloadStatus, shareStatus: $shareStatus)';
   }
 
   @override
@@ -151,12 +190,21 @@ class _$EditPhotoStateImpl implements _EditPhotoState {
                 other.editState == editState) &&
             (identical(other.opacityLayer, opacityLayer) ||
                 other.opacityLayer == opacityLayer) &&
-            const DeepCollectionEquality().equals(other._widgets, _widgets));
+            const DeepCollectionEquality().equals(other._widgets, _widgets) &&
+            (identical(other.downloadStatus, downloadStatus) ||
+                other.downloadStatus == downloadStatus) &&
+            (identical(other.shareStatus, shareStatus) ||
+                other.shareStatus == shareStatus));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, editState, opacityLayer,
-      const DeepCollectionEquality().hash(_widgets));
+  int get hashCode => Object.hash(
+      runtimeType,
+      editState,
+      opacityLayer,
+      const DeepCollectionEquality().hash(_widgets),
+      downloadStatus,
+      shareStatus);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +218,9 @@ abstract class _EditPhotoState implements EditPhotoState {
   const factory _EditPhotoState(
       {final EditState editState,
       final double opacityLayer,
-      final List<DragableWidget> widgets}) = _$EditPhotoStateImpl;
+      final List<DragableWidget> widgets,
+      final DownloadStatus downloadStatus,
+      final DownloadStatus shareStatus}) = _$EditPhotoStateImpl;
 
   @override
   EditState get editState;
@@ -178,6 +228,10 @@ abstract class _EditPhotoState implements EditPhotoState {
   double get opacityLayer;
   @override
   List<DragableWidget> get widgets;
+  @override
+  DownloadStatus get downloadStatus;
+  @override
+  DownloadStatus get shareStatus;
   @override
   @JsonKey(ignore: true)
   _$$EditPhotoStateImplCopyWith<_$EditPhotoStateImpl> get copyWith =>
